@@ -1,0 +1,28 @@
+/**
+ * Colours
+ */
+$text-headline: #13131f;
+$text-body: #42424c;
+
+$white: #fff;
+$black: #000;
+$pink: #e1457b;
+$green: #84bd00;
+$orange: #ff671b;
+$purple: #582c83;
+
+$disabled: #d0d0d2;
+
+/**
+ * Breakpoints
+ */
+$breakpoints: (
+  'phone': 400px,
+  'phone-wide': 480px,
+  'phablet': 560px,
+  'tablet-small': 640px,
+  'tablet': 768px,
+  'tablet-wide': 1024px,
+  'desktop': 1248px,
+  'desktop-wide': 1440px
+);

@@ -1,0 +1,39 @@
+/**
+ * Mixins
+ */
+@mixin list-remove-styling {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+
+    @if $type == max {
+      $width: $width - 1px;
+    }
+
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+
+@mixin font-size($size-value: 16, $line-height: 20) {
+  font-size: $size-value * 1px;
+  font-size: ($size-value / 10) * 1rem;
+  line-height: $line-height * 1px;
+}
