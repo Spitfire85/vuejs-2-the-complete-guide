@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Homepage</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <!-- <div id="app">
+      <h1 v-once>{{ title }}</h1>
+      <p>{{ sayHello() }} <a v-bind:href="link">Google</a></p>
+    </div> -->
+
+    <div class="status" id="app">
+      <div class="tweet-content">
+        <img src="https://pbs.twimg.com/profile_images/1070775214370373633/borvu2Xx_400x400.jpg" class="logo"
+          alt="Vue Vixens DC logo">
+        <div class="tweet">
+          <a href="https://twitter.com/vuevixensdc">Vue Vixens DC</a>
+          <span>@VueVixensDC · Mar 20</span>
+          <p class="tweet-text">
+            {{ tweetText }}
+          </p>
+          <div class="reactions like" v-on:click="toggleLike">
+            <span class="like">
+              <span v-if="liked">♥️</span> <span v-else>♡</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="comment-bar">
+        <textarea placeholder="tweet your reply" v-model="commentText" v-on:input="countCharacters"></textarea>
+        <span class="characters-remaining">
+          {{ charactersRemaining }} characters remaining
+        </span>
+      </div>
+    </div>
+
+    <script>
+      // new Vue({
+      //   el: '#app',
+      //   data: {
+      //     title: 'Hello World!',
+      //     link: 'http://google.com'
+      //   },
+      //   methods: {
+      //     sayHello: function (event) {
+      //       this.title = 'Hello';
+      //       return this.title;
+      //     }
+      //   }
+      // });
+
+      const app = new Vue({
+        el: ".status",
+        data: {
+          tweetText: "Hello World TEST!",
+          charactersRemaining: 280,
+          commentText: '',
+          liked: false
+        },
+        methods: {
+          countCharacters: function () {
+            this.charactersRemaining = 280 - this.commentText.length
+          },
+
+          toggleLike: function () {
+            this.liked = !this.liked
+          }
+        }
+      })
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>

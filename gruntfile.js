@@ -85,13 +85,13 @@ module.exports = grunt => {
     },
 
     // Lint the SCSS as per coding standards
-    sasslint: {
-      options: {
-        configFile: '.sass-lint.yml',
-        'cache-config': true
-      },
-      target: ['source/scss/**/*.scss', '!source/scss/vendor**/*.scss']
-    },
+    // sasslint: {
+    //   options: {
+    //     configFile: '.sass-lint.yml',
+    //     'cache-config': true
+    //   },
+    //   target: ['source/scss/**/*.scss', '!source/scss/vendor**/*.scss']
+    // },
 
     sass: {
       build: {
@@ -112,13 +112,7 @@ module.exports = grunt => {
         map: true,
         processors: [
           require('autoprefixer')({
-            browsers: [
-              'last 2 versions',
-              'last 4 iOS versions',
-              'last 4 Android versions',
-              'ie 9',
-              'ie 10'
-            ]
+            browsers: ['last 2 versions', 'last 4 iOS versions', 'last 4 Android versions', 'ie 9', 'ie 10']
           }),
           require('cssnano')() // minify the result
         ]
@@ -186,10 +180,7 @@ module.exports = grunt => {
 
     prettier: {
       files: {
-        src: [
-          "source/js/**/*.js",
-          "source/scss/**/*.scss",
-        ]
+        src: ['source/js/**/*.js', 'source/scss/**/*.scss']
       }
     },
 
@@ -207,7 +198,7 @@ module.exports = grunt => {
 
       styles: {
         files: 'source/scss/**/*.scss',
-        tasks: ['newer:prettier', 'newer:sasslint', 'sass:build', 'newer:postcss']
+        tasks: ['newer:prettier', 'sass:build', 'newer:postcss']
       },
 
       video: {
