@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Homepage</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app">
+      <button v-on:click="increaseCounter(2, $event)">Click me</button>
+      <p>{{ counter }}</p>
+      <p v-on:mousemove="updateCoordinates">Coordinates: {{ x }} / {{ y }} <span v-on:mousemove.stop="">Dead spot</span>
+      </p>
+      <input v-on:keyup.enter="alertMe" type="text">
+    </div>
+
+
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          counter: 0,
+          x: 0,
+          y: 0
+        },
+        methods: {
+          increaseCounter: function (step, event) {
+            this.counter += step;
+          },
+          updateCoordinates: function (event) {
+            this.x = event.clientX;
+            this.y = event.clientY;
+          },
+          alertMe: function () {
+            alert('Alert');
+          }
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>
