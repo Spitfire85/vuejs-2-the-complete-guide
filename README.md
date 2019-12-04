@@ -9,3 +9,5 @@ Directive list: https://012.vuejs.org/guide/directives.html
 https://012.vuejs.org/api/directives.html#Literal_Directives
 
 By default HTML is escaped, so HTML comes in via plain text, you need to use the v-html if you want to have mark up.
+
+Watch object can work on any property.

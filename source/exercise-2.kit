@@ -6,7 +6,7 @@
 
 <head>
   <!-- @include html-partials/global/_head -->
-  <title>Homepage</title>
+  <title>Exercise 2</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
 </head>
 
@@ -17,16 +17,16 @@
     <div id="exercise">
       <!-- 1) Show an alert when the Button gets clicked -->
       <div>
-        <button>Show Alert</button>
+        <button v-on:click="alertMe">Show Alert</button>
       </div>
       <!-- 2) Listen to the "keydown" event and store the value in a data property (hint: event.target.value gives you the value) -->
       <div>
-        <input type="text">
+        <input v-on:keyDown="updateValue" type="text">
         <p>{{ value }}</p>
       </div>
       <!-- 3) Adjust the example from 2) to only fire if the "key down" is the ENTER key -->
       <div>
-        <input type="text">
+        <input v-on:keyDown.enter="updateValue" type="text">
         <p>{{ value }}</p>
       </div>
     </div>
@@ -35,6 +35,14 @@
         el: '#exercise',
         data: {
           value: ''
+        },
+        methods: {
+          alertMe: function () {
+            alert('Alert!');
+          },
+          updateValue: function () {
+            this.value = event.target.value;
+          }
         }
       });
     </script>

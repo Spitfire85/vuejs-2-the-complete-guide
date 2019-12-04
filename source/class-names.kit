@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Class names</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app">
+      <div class="demo" @click="attachRed = !attachRed" :class="{'demo--red': attachRed}"></div>
+      <div class="demo"></div>
+      <div class="demo"></div>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          attachRed: false
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>
