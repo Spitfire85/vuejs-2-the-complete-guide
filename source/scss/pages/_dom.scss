@@ -10,8 +10,8 @@
 
 .clearfix::after {
   content: '';
-  display: table;
   clear: both;
+  display: table;
 }
 
 .demo {
