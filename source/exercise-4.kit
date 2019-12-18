@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Base</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="exercise">
+      <!-- 1) Start the Effect with the Button. The Effect should alternate the "highlight" or "shrink" class on each new setInterval tick (attach respective class to the div with id "effect" below) -->
+      <div>
+        <button @click="startEffect">Start Effect</button>
+        <div id="effect" :class="effectClasses"></div>
+      </div>
+      <!-- 2) Create a couple of CSS classes and attach them via the array syntax -->
+      <div :class="['activeClass', 'errorClass']">I got no class :(</div>
+      <!-- 3) Let the user enter a class (create some example classes) and attach it -->
+      <div>
+        <input v-model="userClass" type="text">
+        <div v-bind:class="[{visible: true}, userClass]"></div>
+      </div>
+      <!-- 4) Let the user enter a class and enter true/ false for another class (create some example classes) and attach the classes -->
+      <div>
+        <input v-model="userClass" type="text">
+        <input v-model="isVisible" type="text">
+        <div v-bind:class="[{visible: isVisible}, userClass]"></div>
+      </div>
+      <!-- 5) Repeat 3) but now with values for styles (instead of class names). Attach the respective styles.  -->
+      <div>
+        <input v-model="myStyle.backgroundColor" type="text">
+        <div v-bind:style="myStyle"></div>
+      </div>
+      <!-- 6) Create a simple progress bar with setInterval and style bindings. Start it by hitting the below button. -->
+      <div>
+        <button @click="startProgress">Start Progress</button>
+        <div :class="['progress-bar']" v-bind:style="progressBar"></div>
+      </div>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#exercise',
+        data: {
+          effectClasses: {
+            highlight: true,
+            shrink: false
+          },
+          isVisible: true,
+          userClass: '',
+          value: '',
+          myStyle: {
+            width: '100px',
+            height: '100px',
+            backgroundColor: 'gray'
+          },
+          progressBar: {
+            width: '0%'
+          },
+          classValue: 0
+        },
+        methods: {
+          startEffect: function () {
+            setInterval(() => {
+              this.effectClasses.highlight = !this.effectClasses.highlight;
+              this.effectClasses.shrink = !this.effectClasses.shrink;
+            }, 1000);
+          },
+
+          startProgress: function () {
+            let width = 0;
+
+            setInterval(() => {
+              width += 5;
+              this.progressBar.width = width + '%';
+            }, 500);
+          }
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>

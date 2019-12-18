@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Conditionals and lists</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app">
+      <p v-if="show">You can see me</p>
+      <p v-else>Also me</p>
+      <template v-if="show">
+        <h2>Heading</h2>
+        <p>Also me</p>
+      </template>
+      <p v-show="show">Also me</p>
+
+      <button @click="show = !show">Switch</button>
+
+
+      <ul>
+        <li v-for="(item, i) in ingredients" :key="item">{{ item }}({{ i }})</li>
+        <button @click="ingredients.push('spices')">Add spices</button>
+      </ul>
+
+      <hr>
+        <ul>
+          <li v-for="person in persons">
+            <!-- {{person.name}} -->
+            <span v-for="(value, key, index) in person">{{ index }} {{ value }} : {{ key }}</span>
+          </li>
+        </ul>
+      <hr>
+
+      <span v-for="n in 10">{{ n }}</span>
+
+      <template v-for="(item, i) in ingredients">
+        <h2>{{ item }}</h2>
+        <p>{{ i }}</p>
+      </template>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          show: true,
+          ingredients: ['steak', 'chicken', 'pork', 'lamb'],
+          persons: [
+            {name: 'Max', age: 16, color: 'red'},
+            {name: 'Anna', age: 32, color: 'blue' }
+          ]
+        },
+        methods: {
+
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>
