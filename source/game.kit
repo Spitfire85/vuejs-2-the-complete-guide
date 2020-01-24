@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Base</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app">
+      <section v-if="gameStarted" class="row">
+        <div class="small-6 columns">
+          <h1 class="text-center">YOU</h1>
+          <div class="healthbar">
+            <div class="healthbar text-center" v-bind:style="statsYou" style="background-color: green; margin: 0; color: white; width: 100%">
+
+            </div>
+          </div>
+        </div>
+        <div class="small-6 columns">
+          <h1 class="text-center">MONSTER</h1>
+          <div class="healthbar">
+            <div class="healthbar text-center" v-bind:style="statsMonster" style="background-color: green; margin: 0; color: white; width: 100%">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section  v-if="!gameStarted" class="row controls">
+        <div class="small-12 columns">
+          <button @click="gameStarted = !gameStarted" id="start-game">START NEW GAME</button>
+        </div>
+      </section>
+      <section v-if="gameStarted" class="row controls">
+        <div class="small-12 columns">
+          <button @click="attack" id="attack">ATTACK</button>
+          <button id="special-attack">SPECIAL ATTACK</button>
+          <button id="heal">HEAL</button>
+          <button id="give-up">GIVE UP</button>
+        </div>
+      </section>
+      <section v-if="gameStarted" class="row log">
+        <div class="small-12 columns">
+          <ul>
+            <li>
+
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          gameStarted: true,
+          statsYou: {
+            health: 100
+            // width: this.statsYou.health + '%'
+          },
+          statsMonster: {
+            health: 100
+            // width: this.statsMonster.health + '%'
+          }
+        },
+        methods: {
+          attack: function() {
+            let attackYourScore = Math.floor(Math.random() * 10) + 1;
+            let attackMonsterScore = Math.floor(Math.random() * 10) + 1;
+
+            this.statsYou.health = (health - attackMonsterScore) + '%';
+            this.statsMonster.health = (health - attackYourScore) + '%';
+          },
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>
