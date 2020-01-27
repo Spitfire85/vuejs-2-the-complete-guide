@@ -67,11 +67,14 @@
 }
 
 .healthbar {
-  width: 80%;
   height: 40px;
   background-color: #eee;
   margin: auto;
   transition: width 500ms;
+}
+
+.healthbar-outer {
+  width: 100%;
 }
 
 .controls,

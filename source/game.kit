@@ -6,7 +6,7 @@
 
 <head>
   <!-- @include html-partials/global/_head -->
-  <title>Base</title>
+  <title>Vue Game</title>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
 </head>
 
@@ -18,32 +18,34 @@
       <section v-if="gameStarted" class="row">
         <div class="small-6 columns">
           <h1 class="text-center">YOU</h1>
-          <div class="healthbar">
-            <div class="healthbar text-center" v-bind:style="statsYou" style="background-color: green; margin: 0; color: white; width: 100%">
-
+          <div class="healthbar healthbar-outer">
+            <div class="healthbar text-center" v-bind:style="statsUser" style="background-color: green; margin: 0; color: white;"
+            :style="{width: statsUser.health + '%'}">
+              {{ statsUser.health }}
             </div>
           </div>
         </div>
         <div class="small-6 columns">
           <h1 class="text-center">MONSTER</h1>
-          <div class="healthbar">
-            <div class="healthbar text-center" v-bind:style="statsMonster" style="background-color: green; margin: 0; color: white; width: 100%">
-
+          <div class="healthbar healthbar-outer">
+            <div class="healthbar text-center" v-bind:style="statsMonster" style="background-color: green; margin: 0; color: white;"
+            :style="{width: statsUser.health + '%'}">
+              {{ statsMonster.health }}
             </div>
           </div>
         </div>
       </section>
       <section  v-if="!gameStarted" class="row controls">
         <div class="small-12 columns">
-          <button @click="gameStarted = !gameStarted" id="start-game">START NEW GAME</button>
+          <button @click="startGame" id="start-game">START NEW GAME</button>
         </div>
       </section>
       <section v-if="gameStarted" class="row controls">
         <div class="small-12 columns">
           <button @click="attack" id="attack">ATTACK</button>
-          <button id="special-attack">SPECIAL ATTACK</button>
-          <button id="heal">HEAL</button>
-          <button id="give-up">GIVE UP</button>
+          <button @click="specialAttack" id="special-attack">SPECIAL ATTACK</button>
+          <button @click="heal" id="heal">HEAL</button>
+          <button @click="giveUp" id="give-up">GIVE UP</button>
         </div>
       </section>
       <section v-if="gameStarted" class="row log">
@@ -62,22 +64,46 @@
         el: '#app',
         data: {
           gameStarted: true,
-          statsYou: {
+          statsUser: {
             health: 100
-            // width: this.statsYou.health + '%'
           },
           statsMonster: {
             health: 100
-            // width: this.statsMonster.health + '%'
           }
         },
         methods: {
-          attack: function() {
-            let attackYourScore = Math.floor(Math.random() * 10) + 1;
-            let attackMonsterScore = Math.floor(Math.random() * 10) + 1;
+          startGame: function() {
+            this.gameStarted = true,
+            this.statsUser.health = 100,
+            this.statsMonster.health = 100
+          },
+          attack: function () {
+            let max = 10;
+            let attackUserScore = Math.floor(Math.random() * max) + 1;
+            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
 
-            this.statsYou.health = (health - attackMonsterScore) + '%';
-            this.statsMonster.health = (health - attackYourScore) + '%';
+            this.statsUser.health -= attackMonsterScore;
+            this.statsMonster.health -= attackUserScore;
+          },
+          specialAttack: function () {
+            let max = 20;
+            let attackUserScore = Math.floor(Math.random() * max) + 1;
+            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
+
+            this.statsUser.health -= attackMonsterScore;
+            this.statsMonster.health -= attackUserScore;
+          },
+          heal: function () {
+            let max = 10;
+            let attackUserScore = Math.floor(Math.random() * max) + 1;
+            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
+
+            this.statsUser.health -= attackMonsterScore;
+            this.statsUser.health += attackUserScore;
+          },
+          giveUp: function () {
+            this.statsUser.health = 100,
+            this.statsMonster.health = 100
           },
         }
       });
