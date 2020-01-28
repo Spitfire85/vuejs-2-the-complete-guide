@@ -29,7 +29,7 @@
           <h1 class="text-center">MONSTER</h1>
           <div class="healthbar healthbar-outer">
             <div class="healthbar text-center" v-bind:style="statsMonster" style="background-color: green; margin: 0; color: white;"
-            :style="{width: statsUser.health + '%'}">
+            :style="{width: statsMonster.health + '%'}">
               {{ statsMonster.health }}
             </div>
           </div>
@@ -48,11 +48,12 @@
           <button @click="giveUp" id="give-up">GIVE UP</button>
         </div>
       </section>
-      <section v-if="gameStarted" class="row log">
+      <section v-if="turns.length > 0" class="row log">
         <div class="small-12 columns">
           <ul>
-            <li>
-
+            <li v-for="turn in turns"
+            :class="{'player-turn': turn.isPlayer, 'monster-turn': !turn.isPlayer} ">
+              {{ turn.text }}
             </li>
           </ul>
         </div>
@@ -64,6 +65,7 @@
         el: '#app',
         data: {
           gameStarted: true,
+          turns: [],
           statsUser: {
             health: 100
           },
@@ -75,36 +77,92 @@
           startGame: function() {
             this.gameStarted = true,
             this.statsUser.health = 100,
-            this.statsMonster.health = 100
+            this.statsMonster.health = 100,
+            this.turns = []
           },
           attack: function () {
-            let max = 10;
-            let attackUserScore = Math.floor(Math.random() * max) + 1;
-            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
+            let attackUserScore = this.calcDamage(3, 10);
+            this.turns.unshift({
+              isPlayer: true,
+              text: 'You hit for ' + attackUserScore
+            });
 
-            this.statsUser.health -= attackMonsterScore;
             this.statsMonster.health -= attackUserScore;
+            if (this.checkWin()) {
+              return
+            }
+
+            this.monsterAttack();
           },
           specialAttack: function () {
-            let max = 20;
-            let attackUserScore = Math.floor(Math.random() * max) + 1;
-            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
+            let attackUserScore = this.calcDamage(10, 20);
 
-            this.statsUser.health -= attackMonsterScore;
+            this.turns.unshift({
+              isPlayer: true,
+              text: 'Your special attack hit for ' + attackUserScore
+            });
+
             this.statsMonster.health -= attackUserScore;
+            if (this.checkWin()) {
+              return
+            }
+
+            this.monsterAttack();
           },
           heal: function () {
-            let max = 10;
-            let attackUserScore = Math.floor(Math.random() * max) + 1;
-            let attackMonsterScore = Math.floor(Math.random() * max) + 1;
+            if (this.statsUser.health <= 90) {
+              this.statsUser.health += 10;
 
-            this.statsUser.health -= attackMonsterScore;
-            this.statsUser.health += attackUserScore;
+              this.turns.unshift({
+                isPlayer: true,
+                text: 'You healed yourself for 10 points'
+              });
+            } else {
+              this.statsUser.health = 100;
+              this.turns.unshift({
+                isPlayer: true,
+                text: 'Your health is too high to heal'
+              });
+            }
+
+            this.monsterAttack();
           },
           giveUp: function () {
-            this.statsUser.health = 100,
-            this.statsMonster.health = 100
+            this.gameStarted = false;
+            this.turns = []
           },
+          calcDamage (min, max) {
+            return Math.max(Math.floor(Math.random() * max) + 1, min)
+          },
+          monsterAttack() {
+            let attackMonsterScore = this.calcDamage(3, 10);
+            this.statsUser.health -= attackMonsterScore;
+
+            this.turns.unshift({
+              isPlayer: false,
+              text: 'Monster hits for ' + attackMonsterScore
+            });
+            this.checkWin();
+          },
+          checkWin() {
+            if (this.statsMonster.health <= 0) {
+              if (confirm('You won the game! Restart?')) {
+                this.startGame();
+              } else {
+                this.gameStarted = false;
+              }
+              return true;
+            } else if (this.statsUser.health <= 0) {
+              if (confirm('You lost the game! Restart?')) {
+                this.startGame();
+              } else {
+                this.gameStarted = false;
+              }
+              return true;
+            }
+
+            return false;
+          }
         }
       });
     </script>
