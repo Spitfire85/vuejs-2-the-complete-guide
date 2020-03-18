@@ -62,3 +62,7 @@ Methods aren't the only way to create a custom function. You can also use watch.
 What is difference between 'data:' and 'data()' in Vue.js?
 https://stackoverflow.com/questions/48176345/what-is-difference-between-data-and-data-in-vue-js
 
+Vue life cycle
+https://jsfiddle.net/smax/9a2k6cja/2/
+https://jsfiddle.net/smax/jcgw7ak8/
+https://vuejs.org/v2/guide/instance.html

@@ -16,6 +16,8 @@
   <main>
     <div id="app">
       <h1>{{ title }}</h1>
+      <button @click="title = 'Changed'">Update title</button>
+      <button @click="destroy">Destroy</button>
     </div>
 
     <script>
@@ -25,10 +27,33 @@
           title: 'Vue title'
         },
         methods: {
-
+          destroy: function() {
+            this.$destroy();
+          }
         },
         beforeCreate: function() {
           console.log('beforeCreate');
+        },
+        created: function () {
+          console.log('Created');
+        },
+        beforeMount: function () {
+          console.log('beforeMount');
+        },
+        mounted: function () {
+          console.log('mounted');
+        },
+        beforeUpdated: function () {
+          console.log('beforeUpdated');
+        },
+        updated: function () {
+          console.log('updated');
+        },
+        beforeDestory: function () {
+          console.log('beforeDestory');
+        },
+        destroyed: function () {
+          console.log('destroyed');
         }
       });
     </script>
