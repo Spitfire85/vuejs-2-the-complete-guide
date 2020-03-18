@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Base</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app1">
+      <h1 ref="heading">{{ title }}</h1>
+      <button v-on:click="show">Show Paragraph</button>
+      <p v-if="showParagraph">This is not always visible</p>
+    </div>
+
+    <div id="app2">
+      <h1 ref="heading">{{ title }}</h1>
+      <button v-on:click="onChange" ref="myButton">On change</button>
+      <p v-if="showParagraph">This is not always visible</p>
+    </div>
+
+    <script>
+      const vm1 = new Vue({
+        el: '#app1',
+        data: {
+          title: 'The VueJS Instance',
+          showParagraph: false
+        },
+        methods: {
+          show: function () {
+            this.showParagraph = true;
+            this.updateTitle('The VueJS Instance (Updated)');
+            console.log(this.$refs.myButton);
+          },
+          updateTitle: function (title) {
+            this.title = title;
+          }
+        },
+        computed: {
+          lowercaseTitle: function () {
+            return this.title.toLowerCase();
+          }
+        },
+        watch: {
+          title: function (value) {
+            alert('Title changed, new value: ' + value);
+          }
+        }
+      });
+      console.log(vm1);
+      console.log(vm1.$data.title);
+
+
+      const vm2 = new Vue({
+        el: '#app2',
+        data: {
+          title: 'The VueJS Instance',
+          showParagraph: false
+        },
+        methods: {
+          show: function () {
+            this.showParagraph = true;
+            this.updateTitle('The VueJS Instance (Updated)');
+          },
+          updateTitle: function (title) {
+            this.title = title;
+          },
+          onChange: function () {
+            vm1.title = 'Changed';
+          }
+        },
+        computed: {
+          lowercaseTitle: function () {
+            return this.title.toLowerCase();
+          }
+        },
+        watch: {
+          title: function (value) {
+            alert('Title changed, new value: ' + value);
+          }
+        }
+      });
+
+      console.log(vm2.$refs);
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>

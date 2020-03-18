@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="no-js ie-9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+  <!-- @include html-partials/global/_head -->
+  <title>Base</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+</head>
+
+<body>
+  <!-- @include html-partials/global/_header -->
+
+  <main>
+    <div id="app">
+      <h1>{{ title }}</h1>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          title: 'Vue title'
+        },
+        methods: {
+
+        },
+        beforeCreate: function() {
+          console.log('beforeCreate');
+        }
+      });
+    </script>
+  </main>
+  <!-- @include html-partials/global/_footer -->
+</body>
+
+</html>
